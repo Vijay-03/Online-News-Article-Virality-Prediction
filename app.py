@@ -19,10 +19,10 @@ import streamlit_authenticator as stauth
 
 
 # Loading Random Forest model
-model1 = pickle.load(open('Random_Forest', 'rb'))
+# model1 = pickle.load(open('Random_Forest', 'rb'))
 
 # Loading RidgeCV model
-# model2 = pickle.load(open('RidgeCV', 'rb'))
+model2 = pickle.load(open('RidgeCV', 'rb'))
 
 stopwords=set(stopwords.words('english'))
 
@@ -256,8 +256,9 @@ elif add_dropbox == "User Check":
 
     if st.button("Check"):
             dataf = create_df(input1)
-            result = model1.predict(dataf)
-            
+#             result = model1.predict(dataf)
+            result = model2.predict(dataf)
+
             # msg = '<p style = "font-family: Franklin Gothic; color: #F63366;' \
             #     ' font-size: 20px;">Predicted virality is:</p'
             msg = '<p style = "font-family: Franklin Gothic; color: #F63366;' \
