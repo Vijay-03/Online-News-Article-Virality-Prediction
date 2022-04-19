@@ -18,6 +18,7 @@ import nltk
 nltk.download('stopwords')
 nltk.download('word_tokenize')
 nltk.download('words')
+nltk.download('punkt')
 # import streamlit_authenticator as stauth
 # from bs4 import BeautifulSoup
 
