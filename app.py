@@ -1,4 +1,5 @@
 # from statistics import mode
+from turtle import width, window_width
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 import requests
@@ -14,20 +15,16 @@ from datetime import date
 from PIL import Image, ImageEnhance
 import pickle
 import streamlit as st
-import nltk
-nltk.download('stopwords')
-nltk.download('word_tokenize')
-nltk.download('words')
-nltk.download('punkt')
+import plotly.express as px
 # import streamlit_authenticator as stauth
 # from bs4 import BeautifulSoup
 
 
 # Loading Random Forest model
-# model1 = pickle.load(open('Random_Forest', 'rb'))
+model1 = pickle.load(open('Random_Forest', 'rb'))
 
 # Loading RidgeCV model
-model2 = pickle.load(open('RidgeCV', 'rb'))
+# model2 = pickle.load(open('RidgeCV', 'rb'))
 
 stopwords=set(stopwords.words('english'))
 
@@ -250,7 +247,7 @@ add_dropbox = st.sidebar.selectbox(
 if add_dropbox == "Home":
     image = np.array(Image.open(image_file_path))
     st.image(image)
-    st.write("An machine learning approach to predict the number of shares that an online news article could get.")
+    st.write("A machine learning approach to predict the number of shares that an online news article could get.")
 
 
 elif add_dropbox == "User Check":
@@ -261,16 +258,32 @@ elif add_dropbox == "User Check":
 
     if st.button("Check"):
             dataf = create_df(input1)
-#             result = model1.predict(dataf)
-            result = model2.predict(dataf)
-
+            result = model1.predict(dataf)
+            
             # msg = '<p style = "font-family: Franklin Gothic; color: #F63366;' \
             #     ' font-size: 20px;">Predicted virality is:</p'
             msg = '<p style = "font-family: Franklin Gothic; color: #F63366;' \
                 ' font-size: 20px;">Predicted Number of Shares:</p'
             st.write(msg, unsafe_allow_html=True)
-            st.write(result[0])
 
+            temp = pd.DataFrame(result, ["Article"])
+            temp.reset_index(level=0, inplace=True)
+            df = temp.rename(index=str, columns={"index": "Online News", 0: "Predicted shares"})
+            # st.dataframe(df)
+            st.write(result[0])
+            # df = px.data.gapminder()
+            fig = px.bar(df, x='Online News', y='Predicted shares',
+                        color='Predicted shares', height=400)
+            fig.update_traces(width=0.4)
+
+            st.write(" ")
+
+            g_msg = '<p style = "font-family: Franklin Gothic; color: #F63366;' \
+                ' font-size: 20px;">Graphical View:</p'
+            st.write(g_msg, unsafe_allow_html=True)
+            st.plotly_chart(fig, use_container_width=True)
+
+            
     # Filters = st.radio("Select any prediction model:",
     #                         ("Random Forest Model", "Regression Model")
     #                         )
