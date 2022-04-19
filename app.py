@@ -14,8 +14,8 @@ from datetime import date
 from PIL import Image, ImageEnhance
 import pickle
 import streamlit as st
-import nltk
-nltk.download()
+# import nltk
+# nltk.download()
 # import streamlit_authenticator as stauth
 # from bs4 import BeautifulSoup
 
