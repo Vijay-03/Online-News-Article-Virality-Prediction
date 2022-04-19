@@ -15,7 +15,9 @@ from PIL import Image, ImageEnhance
 import pickle
 import streamlit as st
 import nltk
-nltk.download('stopwords', 'word_tokenize', 'words')
+nltk.download('stopwords')
+nltk.download('word_tokenize')
+nltk.download('words')
 # import streamlit_authenticator as stauth
 # from bs4 import BeautifulSoup
 
