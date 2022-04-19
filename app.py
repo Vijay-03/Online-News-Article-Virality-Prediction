@@ -14,8 +14,14 @@ import datetime
 from datetime import date
 from PIL import Image, ImageEnhance
 import pickle
+import plotly.express as px
 import streamlit as st
 import plotly.express as px
+import nltk
+nltk.download('stopwords')
+nltk.download('word_tokenize')
+nltk.download('words')
+nltk.download('punkt')
 # import streamlit_authenticator as stauth
 # from bs4 import BeautifulSoup
 
